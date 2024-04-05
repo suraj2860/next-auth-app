@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-const page = () => {
+const SignupPage = () => {
 
     const router = useRouter();
-    const [user, setuser] = useState({
+    const [user, setUser] = useState({
         email: "",
         username: "",
         password: ""
@@ -34,11 +35,37 @@ const page = () => {
         } else {
             setButtonDisabled(true);
         }
-    },[]);
+    },[user]);
 
   return (
-    <div>page</div>
+    <div className='flex flex-col items-center justify-center min-h-screen py-2 '>
+        <h1>{loading ? "Processing" : "Signup" }</h1>
+        <hr />
+        <label htmlFor="username">username</label>
+        <input 
+        className='text-black'
+        id='username'
+        value={user.username}
+        onChange={e => setUser({...user, username: e.target.value})}
+        type="text" />
+        <label htmlFor="email">email</label>
+        <input 
+        className='text-black'
+        id='email'
+        value={user.email}
+        onChange={e => setUser({...user, email: e.target.value})}
+        type="text" />
+        <label htmlFor="password">password</label>
+        <input 
+        className='text-black'
+        id='password'
+        value={user.password}
+        onChange={e => setUser({...user, password: e.target.value})}
+        type="text" />
+        <button onClick={handleSignup}>{buttonDisabled ? "No Signup" : "Signup"}</button>
+        <Link href={'/login'}>Visit login page</Link>
+    </div>
   )
 }
 
-export default page
+export default SignupPage;
